@@ -1,0 +1,14 @@
+# Maven / Gradle
+target/
+build/
+*.log
+
+# Node
+node_modules/
+dist/
+.env
+
+# IDEs
+*.iml
+.idea/
+.vscode/
