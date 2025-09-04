@@ -1,8 +1,11 @@
 package co.com.prueba.tecnica.sysman.service;
 
+import co.com.prueba.tecnica.sysman.entity.Material;
 import co.com.prueba.tecnica.sysman.repository.MaterialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MaterialesService {
@@ -12,6 +15,10 @@ public class MaterialesService {
     @Autowired
     public MaterialesService(MaterialRepository materialRepository) {
         this.materialRepository = materialRepository;
+    }
+
+    public List<Material> obtenerTodosLosMateriales() {
+        return materialRepository.findAll();
     }
 
 
