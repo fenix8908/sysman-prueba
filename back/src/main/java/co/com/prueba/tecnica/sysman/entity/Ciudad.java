@@ -1,12 +1,7 @@
 package co.com.prueba.tecnica.sysman.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "ciudad")
@@ -16,6 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Ciudad {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true, nullable = false)
     private Long codigo;
     private String nombre;
     @ManyToOne(optional = false)
