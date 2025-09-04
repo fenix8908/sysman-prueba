@@ -54,5 +54,21 @@ public class MaterialController {
             ));
         }
     }
+    @GetMapping("/ciudad/{ciudadId}")
+    public ResponseEntity<GeneralResponseDto<Object>> obtenerMaterialesPorCiudad(@PathVariable("ciudadId") Long ciudadId) {
+        try {
+            return ResponseEntity.ok(new GeneralResponseDto<>(
+                    "Materiales obtenidos exitosamente",
+                    true,
+                    materialesService.obtenerMaterialesPorCiudad(ciudadId)
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new GeneralResponseDto<>(
+                    "Error al obtener los materiales: " + e.getMessage(),
+                    false,
+                    null
+            ));
+        }
+    }
 
 }

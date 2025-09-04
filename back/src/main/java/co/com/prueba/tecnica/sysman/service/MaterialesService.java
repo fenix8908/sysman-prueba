@@ -34,5 +34,17 @@ public class MaterialesService {
         }
     }
 
+    public List<Material> obtenerMaterialesPorCiudad(Long ciudadId) {
+        if( ciudadId == null ) {
+            throw new IllegalArgumentException("El ID de la ciudad no puede ser nulo");
+        }
+        List<Material> materiales = materialRepository.buscarPorCiudad(ciudadId);
+        if( materiales.isEmpty() ) {
+            throw new IllegalArgumentException("No se encontraron materiales para la ciudad con ID: " + ciudadId);
+        }else {
+            return materiales;
+        }
+    }
+
 
 }

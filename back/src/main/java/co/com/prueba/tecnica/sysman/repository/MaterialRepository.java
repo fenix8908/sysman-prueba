@@ -13,6 +13,6 @@ public interface MaterialRepository extends JpaRepository<Material, Long> {
 
     List<Material> findByTipoAndFechaCompra( String tipo,LocalDate fechaCompra);
 
-    @Query("select m from Material m where m.ciudad.id = :ciudadId")
+    @Query("SELECT m FROM Material m WHERE m.ciudad.id = :ciudadId")
     List<Material> buscarPorCiudad(@Param("ciudadId") Long ciudadId);
 }
