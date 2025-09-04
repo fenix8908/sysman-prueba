@@ -5,6 +5,7 @@ import co.com.prueba.tecnica.sysman.service.MaterialesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,4 +36,23 @@ public class MaterialController {
             ));
         }
     }
+
+    @GetMapping("/filtrar/{tipo}/{desde}")
+    public ResponseEntity<GeneralResponseDto<Object>> obtenerMaterialesPorTipoYFecha(@PathVariable("tipo") String tipoMaterial,
+                                                                                     @PathVariable("desde") String fechaDesde) {
+        try {
+            return ResponseEntity.ok(new GeneralResponseDto<>(
+                    "Materiales obtenidos exitosamente",
+                    true,
+                    materialesService.obtenerMaterialesPorTipoYFecha(tipoMaterial, fechaDesde)
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new GeneralResponseDto<>(
+                    "Error al obtener los materiales: " + e.getMessage(),
+                    false,
+                    null
+            ));
+        }
+    }
+
 }

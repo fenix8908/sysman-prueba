@@ -5,6 +5,7 @@ import co.com.prueba.tecnica.sysman.repository.MaterialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,6 +20,18 @@ public class MaterialesService {
 
     public List<Material> obtenerTodosLosMateriales() {
         return materialRepository.findAll();
+    }
+
+    public List<Material> obtenerMaterialesPorTipoYFecha(String tipo, String desde) {
+        if( tipo == null || tipo.isEmpty() ) {
+            throw new IllegalArgumentException("El tipo de material no puede estar vacío");
+        }
+        List<Material> materiales = materialRepository.findByTipoAndFechaCompra(tipo, LocalDate.parse(desde));
+        if( materiales.isEmpty() ) {
+            throw new IllegalArgumentException("No se encontraron materiales con los criterios especificados");
+        }else {
+            return materiales;
+        }
     }
 
 
