@@ -32,6 +32,8 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	// https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
+	implementation("jakarta.validation:jakarta.validation-api:3.1.1")
 
 }
 
