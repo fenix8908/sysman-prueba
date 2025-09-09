@@ -1,13 +1,15 @@
 package co.com.prueba.tecnica.sysman.controller;
 
 import co.com.prueba.tecnica.sysman.dto.GeneralResponseDto;
+import co.com.prueba.tecnica.sysman.dto.MaterialDTO;
+import co.com.prueba.tecnica.sysman.dto.MaterialesDto;
+import co.com.prueba.tecnica.sysman.entity.Material;
 import co.com.prueba.tecnica.sysman.service.MaterialesService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sysman/materiales")
@@ -65,6 +67,43 @@ public class MaterialController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new GeneralResponseDto<>(
                     "Error al obtener los materiales: " + e.getMessage(),
+                    false,
+                    null
+            ));
+        }
+    }
+
+    @PostMapping("/guardar")
+    public ResponseEntity<GeneralResponseDto<Object>> guardarMaterial(@RequestBody @Valid MaterialesDto dto) {
+        Material materialGuardado = materialesService.guardarMaterial(dto);
+        if( materialGuardado != null ) {
+            return ResponseEntity.ok(new GeneralResponseDto<>(
+                    "Material guardado exitosamente",
+                    true,
+                    materialGuardado
+            ));
+        }else{
+            return ResponseEntity.badRequest().body(new GeneralResponseDto<>(
+                    "Error al guardar el material",
+                    false,
+                    null
+            ));
+        }
+    }
+
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<GeneralResponseDto<Object>> actualizarMaterial( @PathVariable("id") long id ,
+                                                                          @Valid @RequestBody MaterialesDto dto) {
+        Material materialActualizado = materialesService.actualizarMaterial(id,dto);
+        if( materialActualizado != null ) {
+            return ResponseEntity.ok(new GeneralResponseDto<>(
+                    "Material actualizado exitosamente",
+                    true,
+                    materialActualizado
+            ));
+        }else{
+            return ResponseEntity.badRequest().body(new GeneralResponseDto<>(
+                    "Error al actualizar el material",
                     false,
                     null
             ));

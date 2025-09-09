@@ -34,6 +34,9 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	// https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
 	implementation("jakarta.validation:jakarta.validation-api:3.1.1")
+	implementation("org.mapstruct:mapstruct:1.6.3")
+	implementation("org.mapstruct:mapstruct-processor:1.6.3")
+	implementation("org.modelmapper:modelmapper:3.2.4")
 
 }
 

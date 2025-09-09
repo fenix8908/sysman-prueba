@@ -25,4 +25,10 @@ public class ValidacionDtoHandler {
                 ));
         return new ResponseEntity<>(errores, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> validarDatosEntrada(IllegalArgumentException ex) {
+        Map<String, String> errores = Map.of("error", ex.getMessage());
+        return new ResponseEntity<>(errores, HttpStatus.BAD_REQUEST);
+    }
 }

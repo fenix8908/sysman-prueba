@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record MaterialDTO(Long id,
-                          @NotBlank(message = "Este campo es obligario") String nombre,
+                          @NotNull @NotBlank(message = "Este campo es obligario") String nombre,
                           String descripcion,
-                          @NotBlank(message = "El tipo es obligatorio") String tipo,
+                          @NotNull @NotBlank(message = "El tipo es obligatorio") String tipo,
                           @NotNull @DecimalMin("0.0") BigDecimal precio,
                           @NotNull @NotNull LocalDate fechaCompra,
                           @NotNull LocalDate fechaVenta,
