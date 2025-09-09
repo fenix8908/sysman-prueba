@@ -1,10 +1,8 @@
 package co.com.prueba.tecnica.sysman.service;
 
-import co.com.prueba.tecnica.sysman.dto.MaterialDTO;
 import co.com.prueba.tecnica.sysman.dto.MaterialesDto;
 import co.com.prueba.tecnica.sysman.entity.Ciudad;
 import co.com.prueba.tecnica.sysman.entity.Material;
-import co.com.prueba.tecnica.sysman.mappers.MaterialsMapper;
 import co.com.prueba.tecnica.sysman.repository.CiudadRepository;
 import co.com.prueba.tecnica.sysman.repository.MaterialRepository;
 import jakarta.persistence.EntityNotFoundException;
