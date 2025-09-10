@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MaterialModel } from '../models/material/material-model';
+import { MaterialModel, MaterialResponse } from '../models/material/material-model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MaterialService {
   private baseUrl = 'http://localhost:8080/sysman/materiales';
 
   constructor(private http:HttpClient) { }
 
-  obtnerrMateriales(){
-    return this.http.get(`${this.baseUrl}/listar`);
+  obtnerMateriales(): Observable<MaterialResponse> {
+    return this.http.get<MaterialResponse>(`${this.baseUrl}`);
   }
 
 

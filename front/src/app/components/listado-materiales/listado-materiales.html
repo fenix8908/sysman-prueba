@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Listado de Materiales</h2>
+
+  @if (cargando) {
+  <div class="alert alert-info">Cargando...</div>
+  }
+  @if (error) {
+  <div class="alert alert-danger">{{ error }}</div>
+   }
+
+  <div class="mb-3 d-flex justify-content-between">
+    <a routerLink="/materiales/nuevo" class="btn btn-primary">➕ Nuevo Material</a>
+  </div>
+
+  <table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Precio</th>
+        <th>ID Ciudad</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (m of materiales; track m.id) {
+      <tr>
+        <td>{{ m.nombre }}</td>
+        <td>{{ m.tipo }}</td>
+        <td>{{ m.precio | currency:'COP':'$':'1.0-0'}}</td>
+        <td>{{ m.ciudad.id }}</td>
+      </tr>
+    }
+    </tbody>
+  </table>
+
+  @if (!cargando && materiales.length === 0) {
+  <div class="alert alert-warning">
+    No hay materiales registrados.
+  </div>
+}
+</div>

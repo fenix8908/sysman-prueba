@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sysman/materiales")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class MaterialController {
 
     private final MaterialesService materialesService;
