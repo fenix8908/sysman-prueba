@@ -18,7 +18,7 @@
         <!-- Filtro por Ciudad -->
         <div class="col-md-3">
           <label class="form-label">Ciudad</label>
-          <select class="form-select" [(ngModel)]="filtroCiudad" (change)="aplicarFiltros()">
+          <select class="form-select" [(ngModel)]="filtroCiudad">
             <option value="">Todas las ciudades</option>
             @for (ciudad of ciudades; track ciudad) {
             <option [value]="ciudad">{{ ciudad }}</option>
@@ -29,7 +29,7 @@
         <!-- Filtro por Tipo -->
         <div class="col-md-3">
           <label class="form-label">Tipo</label>
-          <select class="form-select" [(ngModel)]="filtroTipo" (change)="aplicarFiltros()">
+          <select class="form-select" [(ngModel)]="filtroTipo">
             <option value="">Todos los tipos</option>
             @for (tipo of tipos; track tipo) {
             <option [value]="tipo">{{ tipo }}</option>
@@ -40,13 +40,16 @@
         <!-- Filtro por Fecha de Compra -->
         <div class="col-md-3">
           <label class="form-label">Fecha de Compra</label>
-          <input type="date" class="form-control" [(ngModel)]="filtroFechaCompra" (change)="aplicarFiltros()">
+          <input type="date" class="form-control" [(ngModel)]="filtroFechaCompra">
         </div>
 
-        <!-- Botón para limpiar filtros -->
-        <div class="col-md-3 d-flex align-items-end">
-          <button class="btn btn-outline-secondary w-100" (click)="limpiarFiltros()">
-            🔄 Limpiar Filtros
+        <!-- Botones de acción -->
+        <div class="col-md-3 d-flex align-items-end gap-2">
+          <button class="btn btn-primary w-50" (click)="aplicarFiltros()">
+            🔍 Aplicar
+          </button>
+          <button class="btn btn-outline-secondary w-50" (click)="limpiarFiltros()">
+            🔄 Limpiar
           </button>
         </div>
       </div>
@@ -56,7 +59,6 @@
   <div class="mb-3 d-flex justify-content-between align-items-center">
     <a routerLink="/materiales/nuevo" class="btn btn-primary">➕ Nuevo Material</a>
 
-    <!-- Contador de resultados -->
     @if (materialesFiltrados.length !== materiales.length) {
     <span class="text-muted">
       Mostrando {{ materialesFiltrados.length }} de {{ materiales.length }} materiales
@@ -81,7 +83,7 @@
         <td>{{ m.tipo }}</td>
         <td>{{ m.precio | currency:'COP':'$':'1.0-0'}}</td>
         <td>{{ m.ciudad.nombre }}</td>
-        <td>{{ formatearFecha(m.fechaCompra) }}</td>
+        <td>{{ m.fechaCompra}}</td>
       </tr>
       }
     </tbody>

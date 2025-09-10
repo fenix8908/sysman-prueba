@@ -53,15 +53,12 @@ export class ListadoMateriales implements OnInit{
   }
 
   extraerOpcionesFiltros(): void {
-    // Extraer ciudades únicas
     this.ciudades = [...new Set(this.materiales.map(m => m.ciudad.nombre))].sort();
-
-    // Extraer tipos únicos
     this.tipos = [...new Set(this.materiales.map(m => m.tipo))].sort();
   }
 
   aplicarFiltros(): void {
-    this.materialesFiltrados = this.materiales.filter(material => {
+      this.materialesFiltrados = this.materiales.filter(material => {
       // Filtro por ciudad
       const coincideCiudad = this.filtroCiudad === '' ||
                             material.ciudad.nombre.toLowerCase().includes(this.filtroCiudad.toLowerCase());
@@ -73,10 +70,10 @@ export class ListadoMateriales implements OnInit{
       // Filtro por fecha de compra
       let coincideFecha = true;
       if (this.filtroFechaCompra) {
-        const fechaMaterial = new Date(material.fechaCompra); // Ajusta el nombre de la propiedad
+        const fechaMaterial = new Date(material.fechaCompra);
         const fechaFiltro = new Date(this.filtroFechaCompra);
+        console.log("Fecha filtro", fechaFiltro.toDateString());
 
-        // Comparar solo día, mes y año (ignorar hora)
         coincideFecha = fechaMaterial.toDateString() === fechaFiltro.toDateString();
       }
 
@@ -89,10 +86,6 @@ export class ListadoMateriales implements OnInit{
     this.filtroTipo = '';
     this.filtroFechaCompra = '';
     this.materialesFiltrados = [...this.materiales];
-  }
-
-  formatearFecha(fecha: string): string {
-    return new Date(fecha).toLocaleDateString('es-ES');
   }
 
 }
