@@ -111,4 +111,22 @@ public class MaterialController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<GeneralResponseDto<Object>> obtenerMaterialPorId(@PathVariable("id") Long id) {
+        try {
+            Material material = materialesService.obtenerMaterialPorId(id);
+            return ResponseEntity.ok(new GeneralResponseDto<>(
+                    "Material obtenido exitosamente",
+                    true,
+                    material
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new GeneralResponseDto<>(
+                    "Error al obtener el material: " + e.getMessage(),
+                    false,
+                    null
+            ));
+        }
+    }
+
 }

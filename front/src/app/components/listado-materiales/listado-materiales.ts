@@ -3,11 +3,13 @@ import { MaterialService } from '../../services/material-service';
 import { MaterialModel, MaterialResponse } from './../../models/material/material-model';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-listado-materiales',
   standalone: true,
-  imports: [CurrencyPipe,FormsModule],
+  imports: [CurrencyPipe, FormsModule, RouterLink],
   templateUrl: './listado-materiales.html',
   styleUrl: './listado-materiales.css'
 })

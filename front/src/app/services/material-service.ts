@@ -15,6 +15,10 @@ export class MaterialService {
     return this.http.get<MaterialResponse>(`${this.baseUrl}`);
   }
 
+  obtenerMaterialPorId(id:number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
+
 
   filtrarPorTipoYFecha(tipo: string, fechaDesde: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/filtrar/${tipo}/${fechaDesde}`);

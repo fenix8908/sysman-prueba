@@ -70,6 +70,9 @@ public class MaterialesService {
     public Material guardarMaterial(MaterialesDto dto) {
         validarDatosEntrada(dto);
         Material materialEntity = modelMapper.map(dto, Material.class);
+        Ciudad ciudad= new Ciudad();
+        ciudad.setId(dto.getCiudadId());
+        materialEntity.setCiudad(ciudad);
         return materialRepository.save(materialEntity);
     }
 
@@ -107,6 +110,12 @@ public class MaterialesService {
             log.error("La fecha de compra no puede ser mayor a la fecha de venta");
             throw new IllegalArgumentException("La fecha de compra no puede ser posterior a la fecha de venta");
         }
+    }
+
+    public Material obtenerMaterialPorId(Long id) {
+        return materialRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Material no encontrado con ID: " + id));
+
     }
 
 

@@ -1,0 +1,221 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="card-title mb-0">
+            @if (isEditMode) {
+              Editar Material
+            } @else {
+              Crear Nuevo Material
+            }
+          </h3>
+        </div>
+        <div class="card-body">
+          <!-- Mensaje de error -->
+          @if (error) {
+            <div class="alert alert-danger" role="alert">
+              {{ error }}
+            </div>
+          }
+
+          <form [formGroup]="materialForm" (ngSubmit)="onSubmit()">
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre del Material</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nombre"
+                formControlName="nombre"
+                [class.is-invalid]="submitted && f['nombre'].errors"
+                placeholder="Ingrese el nombre del material"
+              />
+              @if (submitted && f['nombre'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['nombre'].errors['required']) {
+                    <div>El nombre es requerido</div>
+                  }
+                  @if (f['nombre'].errors['maxlength']) {
+                    <div>El nombre no puede tener más de 100 caracteres</div>
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Descripción -->
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <textarea
+                class="form-control"
+                id="descripcion"
+                formControlName="descripcion"
+                rows="3"
+                [class.is-invalid]="submitted && f['descripcion'].errors"
+                placeholder="Ingrese una descripción del material"
+              ></textarea>
+              @if (submitted && f['descripcion'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['descripcion'].errors['required']) {
+                    <div>La descripción es requerida</div>
+                  }
+                  @if (f['descripcion'].errors['maxlength']) {
+                    <div>La descripción no puede tener más de 500 caracteres</div>
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="row">
+              <!-- Tipo -->
+              <div class="col-md-6 mb-3">
+                <label for="tipo" class="form-label">Tipo de Material</label>
+                <select
+                  class="form-select"
+                  id="tipo"
+                  formControlName="tipo"
+                  [class.is-invalid]="submitted && f['tipo'].errors"
+                >
+                  <option value="" disabled selected>Seleccione un tipo</option>
+                  @for (tipo of tiposMaterial; track tipo.value) {
+                    <option [value]="tipo.value">
+                      {{ tipo.label }}
+                    </option>
+                  }
+                </select>
+                @if (submitted && f['tipo'].errors) {
+                  <div class="invalid-feedback">
+                    El tipo de material es requerido
+                  </div>
+                }
+              </div>
+
+              <!-- Precio -->
+              <div class="col-md-6 mb-3">
+                <label for="precio" class="form-label">Precio ($)</label>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="precio"
+                    formControlName="precio"
+                    min="0"
+                    step="0.01"
+                    [class.is-invalid]="submitted && f['precio'].errors"
+                    placeholder="0.00"
+                  />
+                </div>
+                @if (submitted && f['precio'].errors) {
+                  <div class="invalid-feedback">
+                    @if (f['precio'].errors['required']) {
+                      <div>El precio es requerido</div>
+                    }
+                    @if (f['precio'].errors['min']) {
+                      <div>El precio debe ser mayor o igual a 0</div>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- Fecha de Compra -->
+              <div class="col-md-6 mb-3">
+                <label for="fechaCompra" class="form-label">Fecha de Compra</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="fechaCompra"
+                  formControlName="fechaCompra"
+                  [class.is-invalid]="submitted && f['fechaCompra'].errors"
+                />
+                @if (submitted && f['fechaCompra'].errors) {
+                  <div class="invalid-feedback">
+                    La fecha de compra es requerida
+                  </div>
+                }
+              </div>
+
+              <!-- Fecha de Venta -->
+              <div class="col-md-6 mb-3">
+                <label for="fechaVenta" class="form-label">Fecha de Venta (Opcional)</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="fechaVenta"
+                  formControlName="fechaVenta"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- Estado -->
+              <div class="col-md-6 mb-3">
+                <label for="estado" class="form-label">Estado</label>
+                <select
+                  class="form-select"
+                  id="estado"
+                  formControlName="estado"
+                  [class.is-invalid]="submitted && f['estado'].errors"
+                >
+                  <option value="" disabled selected>Seleccione un estado</option>
+                  @for (estado of estadosMaterial; track estado.value) {
+                    <option [value]="estado.value">
+                      {{ estado.label }}
+                    </option>
+                  }
+                </select>
+                @if (submitted && f['estado'].errors) {
+                  <div class="invalid-feedback">
+                    El estado es requerido
+                  </div>
+                }
+              </div>
+
+              <!-- Ciudad -->
+              <div class="col-md-6 mb-3">
+                <label for="ciudadId" class="form-label">Ciudad</label>
+                <select
+                  class="form-select"
+                  id="ciudadId"
+                  formControlName="ciudadId"
+                  [class.is-invalid]="submitted && f['ciudadId'].errors"
+                >
+                  <option value="" disabled selected>Seleccione una ciudad</option>
+                  @for (ciudad of ciudades; track ciudad.id) {
+                    <option [value]="ciudad.id">
+                      {{ ciudad.nombre }}
+                    </option>
+                  }
+                </select>
+                @if (submitted && f['ciudadId'].errors) {
+                  <div class="invalid-feedback">
+                    La ciudad es requerida
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" (click)="onCancel()" [disabled]="loading">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="loading">
+                @if (loading) {
+                  <span class="spinner-border spinner-border-sm me-1"></span>
+                }
+                @if (isEditMode) {
+                  Actualizar
+                } @else {
+                  Crear
+                } Material
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
