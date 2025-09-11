@@ -96,10 +96,16 @@ export class CrearMateriales {
     this.loading = true;
     this.subscriptions.add(
       this.materialService.obtenerMaterialPorId(id).subscribe({
-        next: (material: MaterialModel) => {
+        next: (res: any) => {
+          const material: MaterialModel = res.response;
           this.materialForm.patchValue({
-             ...material,
+             ...res,
             fechaCompra: this.formatDateForInput(material.fechaCompra),
+            descripcion: material.descripcion,
+            precio: material.precio,
+            estado: material.estado,
+            tipo: material.tipo,
+            nombre: material.nombre,
             fechaVenta: material.fechaVenta ? this.formatDateForInput(material.fechaVenta) : '',
             ciudadId: material.ciudad.id
           });

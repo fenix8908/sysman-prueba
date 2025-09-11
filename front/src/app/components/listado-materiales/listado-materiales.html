@@ -74,6 +74,7 @@
         <th>Precio</th>
         <th>Ciudad</th>
         <th>Fecha Compra</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -84,6 +85,9 @@
         <td>{{ m.precio | currency:'COP':'$':'1.0-0'}}</td>
         <td>{{ m.ciudad.nombre }}</td>
         <td>{{ m.fechaCompra}}</td>
+         <td colspan="6">
+          <a [routerLink]="['/materiales/editar/', m.id]" class="btn btn-sm btn-warning me-2">✏️ Editar</a>
+        </td>
       </tr>
       }
     </tbody>
