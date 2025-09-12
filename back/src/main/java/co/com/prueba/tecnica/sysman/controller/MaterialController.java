@@ -5,6 +5,9 @@ import co.com.prueba.tecnica.sysman.dto.MaterialDTO;
 import co.com.prueba.tecnica.sysman.dto.MaterialesDto;
 import co.com.prueba.tecnica.sysman.entity.Material;
 import co.com.prueba.tecnica.sysman.service.MaterialesService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sysman/materiales")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Tag(name = "Materiales", description = "Operaciones relacionadas con los materiales")
+@Validated
 public class MaterialController {
 
     private final MaterialesService materialesService;
@@ -24,6 +29,9 @@ public class MaterialController {
     }
 
     @GetMapping
+    @Operation(summary = "Obtener todos los materiales", description = "Obtiene una lista de todos los materiales disponibles")
+    @ApiResponse(responseCode = "200", description = "Materiales obtenidos exitosamente")
+    @ApiResponse(responseCode = "400", description = "Error al obtener los materiales")
     public ResponseEntity<GeneralResponseDto<Object>> obtenerMateriales() {
         try {
             return ResponseEntity.ok(new GeneralResponseDto<>(
@@ -41,6 +49,10 @@ public class MaterialController {
     }
 
     @GetMapping("/filtrar/{tipo}/{desde}")
+    @Operation(summary = "Obtener todos los materiales por tipo y fecha de compra", description = "Obtiene una lista de" +
+            " todos los materiales disponibles filtrados por tipo y fecha de compra")
+    @ApiResponse(responseCode = "200", description = "Materiales obtenidos exitosamente")
+    @ApiResponse(responseCode = "400", description = "Error al obtener los materiales")
     public ResponseEntity<GeneralResponseDto<Object>> obtenerMaterialesPorTipoYFecha(@PathVariable("tipo") String tipoMaterial,
                                                                                      @PathVariable("desde") String fechaDesde) {
         try {
@@ -58,6 +70,9 @@ public class MaterialController {
         }
     }
     @GetMapping("/ciudad/{ciudadId}")
+    @Operation(summary = "Obtener materiales por ciuadad", description = "Obtiene los materiales por ciudad")
+    @ApiResponse(responseCode = "200", description = "Materiales obtenidos exitosamente")
+    @ApiResponse(responseCode = "400", description = "Error al obtener los materiales")
     public ResponseEntity<GeneralResponseDto<Object>> obtenerMaterialesPorCiudad(@PathVariable("ciudadId") Long ciudadId) {
         try {
             return ResponseEntity.ok(new GeneralResponseDto<>(
@@ -75,6 +90,9 @@ public class MaterialController {
     }
 
     @PostMapping("/guardar")
+    @Operation(summary = "Guardar un nuevo material", description = "Guarda un nuevo material en el sistema")
+    @ApiResponse(responseCode = "200", description = "Material guardado exitosamente")
+    @ApiResponse(responseCode = "400", description = "Error al guardar el material")
     public ResponseEntity<GeneralResponseDto<Object>> guardarMaterial(@RequestBody @Valid MaterialesDto dto) {
         Material materialGuardado = materialesService.guardarMaterial(dto);
         if( materialGuardado != null ) {
@@ -93,6 +111,9 @@ public class MaterialController {
     }
 
     @PutMapping("/actualizar/{id}")
+    @Operation(summary = "Actualizar un material existente", description = "Actualiza los datos de un material existente")
+    @ApiResponse(responseCode = "200", description = "Material actualizado exitosamente")
+    @ApiResponse(responseCode = "400", description = "Error al actualizar el material")
     public ResponseEntity<GeneralResponseDto<Object>> actualizarMaterial( @PathVariable("id") long id ,
                                                                           @Valid @RequestBody MaterialesDto dto) {
         Material materialActualizado = materialesService.actualizarMaterial(id,dto);
@@ -112,6 +133,9 @@ public class MaterialController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener un material por ID", description = "Obtiene los datos de un material específico por su ID")
+    @ApiResponse(responseCode = "200", description = "Material obtenido exitosamente")
+    @ApiResponse(responseCode = "400", description = "Error al obtener el material")
     public ResponseEntity<GeneralResponseDto<Object>> obtenerMaterialPorId(@PathVariable("id") Long id) {
         try {
             Material material = materialesService.obtenerMaterialPorId(id);
