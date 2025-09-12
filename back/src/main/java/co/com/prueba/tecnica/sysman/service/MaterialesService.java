@@ -118,5 +118,13 @@ public class MaterialesService {
 
     }
 
+    public void eliminarMaterial(Long id) {
+        if( !materialRepository.existsById(id) ) {
+            log.error("Material no encontrado con ID: {}", id);
+            throw new IllegalArgumentException("Material no encontrado" );
+        }
+        materialRepository.deleteById(id);
+    }
+
 
 }

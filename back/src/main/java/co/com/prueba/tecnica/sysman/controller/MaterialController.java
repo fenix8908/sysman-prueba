@@ -153,4 +153,26 @@ public class MaterialController {
         }
     }
 
+    @DeleteMapping("/eliminar/{id}")
+    @Operation(summary = "Eliminar un material por ID", description = "Elimina un material específico por su ID")
+    @ApiResponse(responseCode = "200", description = "Material eliminado exitosamente")
+    @ApiResponse(responseCode = "400", description = "Error al eliminar el material")
+    public ResponseEntity<GeneralResponseDto<Object>> eliminarMaterial(@PathVariable("id") Long id) {
+        try {
+            materialesService.eliminarMaterial(id);
+            return ResponseEntity.ok(new GeneralResponseDto<>(
+                    "Material eliminado exitosamente",
+                    true,
+                    null
+            ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new GeneralResponseDto<>(
+                    "Error al eliminar el material: " + e.getMessage(),
+                    false,
+                    null
+            ));
+        }
+    }
+
+
 }

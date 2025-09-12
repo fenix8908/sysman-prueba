@@ -36,4 +36,8 @@ export class MaterialService {
     return this.http.put(`${this.baseUrl}/actualizar/${id}`, material);
   }
 
+  eliminarMaterial(id: number): Observable<MaterialResponse> {
+    return this.http.delete<MaterialResponse>(this.baseUrl + `/eliminar/${id}`);
+  }
+
 }
